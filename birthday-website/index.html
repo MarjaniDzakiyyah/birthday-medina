@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sebuah hadiah digital yang dibuat dengan penuh cinta.">
+    <title>Happy Birthday, Medina</title>
+
+    <!-- Google Fonts: Baloo 2 (judul) + Nunito (isi) + Caveat (tulisan tangan) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;500;600;700;800&family=Caveat:wght@500;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- ============================================================
+         AUDIO PLAYER (Background Music)
+         Ganti "assets/music/lagu.mp3" dengan file MP3 yang kamu punya.
+         Judul lagu: Shape of My Heart - Sting
+         ============================================================ -->
+    <audio id="bg-music" loop preload="none">
+        <source src="assets/music/Backstreet Boys - Shape of My Heart.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Music Control Button (muncul setelah opening) -->
+    <button id="music-control" class="music-control" aria-label="Kontrol Musik" hidden>
+        <span class="music-icon playing">♪</span>
+        <span class="music-label">Shape of My Heart</span>
+    </button>
+
+
+    <!-- ============================================================
+         OPENING SCREEN
+         ============================================================ -->
+    <section id="opening" class="opening" role="region" aria-label="Layar Pembuka">
+
+        <canvas id="stars-canvas" class="stars-canvas"></canvas>
+        <div class="opening-particles" id="opening-particles"></div>
+
+        <div class="opening-content cloud-overlay">
+            <img src="assets/images/varo_story_21_cutout.png" alt="Varo Story 21"
+                style="max-width: 350px; width: 85%; height: auto; margin: 10px auto 20px auto; display: block; animation: floatLogo 3s ease-in-out infinite;">
+
+            <div style="position: relative; max-width: 280px; width: 75%; margin: 0 auto 30px auto;">
+                <img src="assets/images/sheriff-star.svg" alt="Lencana Sheriff" class="sheriff-star-icon">
+                <img src="assets/images/woody-bo.png" alt="Woody and Bo Peep"
+                    class="theme-characters opening-characters" style="width: 100%; display: block;"
+                    onerror="this.src='https://placehold.co/300x300/1B2A4A/D4A24C?text=Woody+%26+Bo+Peep'">
+            </div>
+
+            <button id="open-gift-btn" class="open-gift-btn" hidden>
+                Mulai
+            </button>
+        </div>
+    </section>
+
+
+    <!-- ============================================================
+         MAIN CONTENT
+         ============================================================ -->
+    <main id="main-content" class="main-content" hidden>
+
+        <div class="scroll-progress" id="scroll-progress"></div>
+
+        <!-- =====================================================
+             BAB SATU — TENTANG KAMU (Woody/Andy's Room Theme)
+             ===================================================== -->
+        <section id="section-about" class="section section-about cloud-overlay" aria-labelledby="about-title">
+            <div class="section-inner">
+
+                <header class="section-header reveal">
+                    <div class="section-label"><span>Part 1</span></div>
+                    <h2 id="about-title" class="section-title">About My Deputy</h2>
+                    <p class="section-subtitle">Alvaro Medina Guntara Muradi</p>
+                    <div class="title-divider"></div>
+                </header>
+
+                <!-- Foto + Cerita -->
+                <div class="about-layout reveal">
+                    <div class="portrait-frame">
+                        <img src="assets/images/foto-varo.jpeg" alt="Foto Varo" class="portrait-photo"
+                            onerror="this.parentElement.innerHTML='<div class=\'portrait-placeholder\'><span>📷</span></div>'">
+                    </div>
+                    <div class="about-story">
+                        <p>Alvaro Medina Guntara Muradi yang sekarang nama belakangnya ada RTA-nya. Kamu itu orang yang
+                            selalu punya target baru setiap tahun, yang ngajarin aku kalau hidup itu harus punya arah
+                            dan tujuan. Kalau liat dari perjalanan hidup kamu, aku cuma bisa bilang KAMU KEREN
+                            BANGET!!!. Walaupun secara umur kamu lebih muda, pikiran kamu jauh lebih dewasa. Kamu bisa
+                            menuntun aku dan bikin aku jadi oran yang lebih terbuka dalam melihat dunia.</p>
+                        <p>Di luar sana,orang mungkin kenal kamu itu mageran, suka tidur, dan kelihatannya santai dengan
+                            dunia kamu sendiri. Tapi kalau dilihat dari deket, sangat jauh berbeda. Di saat orang lain
+                            tidur, kamu justru bangun buat belajar banyak hal dan bekerja keras demi masa depan yang
+                            kamu mau. Buat aku, kamu itu ibarat Google berjalan. Tiap kali aku cerita A atau nanya B,
+                            kamu selalu bisa kasih penjelasan yang luar biasa detail. SALUT!</p>
+                        <p>Semoga semua yang lagi kamu kerjain dan usahakan bisa berjalan sesuai rencana dan mewujudkan
+                            apa yang kamu cita-citakan. Selalu jadi Alvaro yang menginspirasi banyak orang yaa. Kalau
+                            kata orang urusan fotografi, trading, excel, manjat, sampai elektronik... carilah Alvaro.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- =====================================================
+             SECTION 1.5 — GETTING TO KNOW YOU (Woody Plaid Theme)
+             ===================================================== -->
+        <section id="section-getting-to-know" class="section section-getting-to-know" aria-labelledby="bio-title">
+            <div class="section-inner">
+                <header class="section-header reveal">
+                    <div class="section-label"><span>Part 2</span></div>
+                    <h2 id="bio-title" class="section-title">Getting to Know You</h2>
+                    <p class="section-subtitle">Mari kita lihat seberapa jauh kamu mengenalku</p>
+                    <div class="title-divider"></div>
+                </header>
+
+                <!-- Kartu Info Kecil -->
+                <div class="bio-grid reveal">
+                    <article class="bio-card">
+                        <span class="bio-icon">🎂</span>
+                        <p class="bio-label">Lahir</p>
+                        <p class="bio-value">30 Juli 2005</p>
+                    </article>
+                    <article class="bio-card">
+                        <span class="bio-icon">🎨</span>
+                        <p class="bio-label">Warna Favorit</p>
+                        <p class="bio-value">Hijau</p>
+                    </article>
+                    <article class="bio-card">
+                        <span class="bio-icon">😋</span>
+                        <p class="bio-label">Makanan Favorit</p>
+                        <p class="bio-value">Subway dan Sate Asin Al-Jihad (WAJIB)</p>
+                    </article>
+                    <article class="bio-card">
+                        <span class="bio-icon">☕</span>
+                        <p class="bio-label">Minuman Favorit</p>
+                        <p class="bio-value">Teh</p>
+                    </article>
+                    <article class="bio-card">
+                        <span class="bio-icon">📈</span>
+                        <p class="bio-label">Hobi</p>
+                        <p class="bio-value">Trading</p>
+                    </article>
+                    <article class="bio-card">
+                        <span class="bio-icon">💙</span>
+                        <p class="bio-label">Hal yang aku suka darimu</p>
+                        <p class="bio-value">Mau menerima dan coba belajar</p>
+                    </article>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- =====================================================
+             BAB DUA — PENCAPAIANMU (Buzz Lightyear Theme)
+             ===================================================== -->
+        <section id="section-hobi" class="section section-hobi" aria-labelledby="hobi-title">
+            <div class="section-inner">
+                <header class="section-header reveal">
+                    <div class="section-label"><span>Part 3</span></div>
+                    <h2 id="hobi-title" class="section-title">To Infinity & Beyond!</h2>
+                    <p class="section-subtitle">Hal-hal keren yang sudah kamu capai</p>
+                    <div class="title-divider"></div>
+                </header>
+
+                <div class="photo-grid reveal">
+                    <div class="photo-card">
+                        <div class="photo-wrapper">
+                            <img src="assets/images/varo-manjat.jpeg" alt="Pencapaian 1">
+                        </div>
+                        <div class="photo-caption">
+                            <p class="photo-title">Juara 1 Manjat BFF</p>
+                            <p>Setelah 3 tahun ikut lomba manjat ini, akhirnyaaa juara 1 dengan sangat mudah. Membuktikan alvaro pantang menyerah, KEREN! </p>
+                        </div>
+                    </div>
+                    <div class="photo-card">
+                        <div class="photo-wrapper">
+                            <img src="assets/images/rta-varo.webp" alt="Pencapaian 2">
+                        </div>
+                        <div class="photo-caption">
+                            <p class="photo-title">Alvaro Medina Guntara Muradi, RTA®</p>
+                            <p>Proses dari hasil belajar dan mengulik, berhasil dapet gelar sebelum lulus kuliah. Mantap!</p>
+                        </div>
+                    </div>
+                    <div class="photo-card">
+                        <div class="photo-wrapper">
+                            <img src="assets/images/varo-saski.jpeg"
+                                alt="Pencapaian 3">
+                        </div>
+                        <div class="photo-caption">
+                            <p class="photo-title">BEST BF EVER</p>
+                            <p>Top 1 pasangan terbaik saski hari ini dan selamanya. Semoga bisa menjadi partner seumur hidup sampai punya anak cucu cicit dan bahagia selalu. Amin</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- =====================================================
+             BAB TIGA — PERJALANAN ULANG TAHUN (Slinky Theme)
+             ===================================================== -->
+        <section id="section-timeline" class="section section-timeline" aria-labelledby="timeline-title">
+            <div class="section-inner">
+                <header class="section-header reveal">
+                    <div class="section-label"><span>Part 4</span></div>
+                    <h2 id="timeline-title" class="section-title">Through the Years</h2>
+                    <p class="section-subtitle">30 Juli</p>
+                    <div class="title-divider"></div>
+                </header>
+
+                <div class="timeline">
+                    <!-- Usia 18 -->
+                    <article class="timeline-item left reveal">
+                        <div class="timeline-photo-wrapper">
+                            <img src="assets/images/varo18.jpeg" alt="Ulang Tahun 18">
+                        </div>
+                        <div class="timeline-card plaid-strip">
+                            <span class="timeline-date">30 Juli 2023</span>
+                            <h3 class="timeline-card-title">18 Tahun🌟</h3>
+                            <p class="timeline-card-text">Pertama kali merayakan ulang tahun alvaro yang super bingung dan masih kerasa canggungnya</p>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </article>
+
+                    <!-- Usia 19 -->
+                    <article class="timeline-item right reveal">
+                        <div class="timeline-photo-wrapper">
+                            <img src="assets/images/varo19.webp" alt="Ulang Tahun 19">
+                        </div>
+                        <div class="timeline-card plaid-strip">
+                            <span class="timeline-date">30 Juli 2024</span>
+                            <h3 class="timeline-card-title">19 Tahun 🎉</h3>
+                            <p class="timeline-card-text">Tahun ini,kedua kalinya ngerayain bareng. Tapi kamu pergi sama reog boys itu ke garut untuk berendam</p>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </article>
+
+                    <!-- Usia 20 -->
+                    <article class="timeline-item left reveal">
+                        <div class="timeline-photo-wrapper">
+                            <img src="assets/images/varo20.jpeg" alt="Ulang Tahun 20">
+                        </div>
+                        <div class="timeline-card plaid-strip">
+                            <span class="timeline-date">30 Juli 2025</span>
+                            <h3 class="timeline-card-title">20 Tahun 🥳</h3>
+                            <p class="timeline-card-text">Ulang tahun yang gagal surprise... betenya ada banget sudah effort dan malah berantem dimobil. Yap, tapi akhirnya kita berdamai dan tiup lilin dengan senyuman</p>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- =====================================================
+             BAB EMPAT — HADIAH UNTUKMU (Alien/Space Theme)
+             ===================================================== -->
+        <section id="section-gift" class="section section-gift" aria-labelledby="gift-title">
+            <div class="section-inner">
+
+                <header class="section-header reveal">
+                    <div class="section-label"><span>bab empat</span></div>
+                    <h2 id="gift-title" class="section-title">The Chosen One</h2>
+                    <p class="section-subtitle">Apa tema kali ini?</p>
+                    <div class="title-divider"></div>
+                </header>
+
+                <div class="gift-container reveal">
+                    <div class="gift-box" id="gift-box" role="button" tabindex="0"
+                        aria-label="Klik untuk membuka kotak hadiah">
+                        <div class="gift-lid">
+                            <div class="gift-ribbon-h"></div>
+                            <div class="gift-ribbon-v"></div>
+                            <div class="gift-bow">
+                                <div class="bow-loop left"></div>
+                                <div class="bow-loop right"></div>
+                                <div class="bow-knot"></div>
+                            </div>
+                        </div>
+                        <div class="gift-body">
+                            <div class="gift-ribbon-body"></div>
+                        </div>
+                        <p class="gift-hint">BKlik untuk membuka kotak hadiah</p>
+                    </div>
+                </div>
+
+                <div class="gift-reveal plaid-strip" id="gift-reveal" hidden>
+                    <h3 class="gift-reveal-title">Makeover Alvaro</h3>
+                    <div class="gift-reveal-text">
+                        <p>Pertama, celana!👖. Karna celana kamu udah pada kekecilan, jadi aku kasih celana yang style nya beda dari biasanya. Bukan lagi cargo ataupun jeans, tapi work pants double knee yang terlihat seperti anak skena.</p>
+                        <p>Kedua, baju!👕. Karena kamu gapunya baju hitam, jadi terciptalah polo hitam ini biar bisa kamu pake kuliah yeay. Semangat menjadi mahasiswa yang kekampus tiap hari ya!</p>
+                        <p>Ketiga, sendal!🩴. Karena akhir-akhir ini kamu sering pake sendal, kita ubah sendal KKN itu jadi sendal warna deep olive sesuai warna favorit kamu</p>
+                        <p>Terakhir, kue bricks!. Supaya kuenya awet, jadi kuenya aku kasih ini, dibuat dengan penuh effort dan sepenuh cinta lov u ❤️</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- =====================================================
+             BAB LIMA — PESAN ULANG TAHUN (Bo Peep Theme)
+             ===================================================== -->
+        <section id="section-letter" class="section section-letter" aria-labelledby="letter-title">
+            <div class="section-inner">
+
+                <header class="section-header reveal">
+                    <div class="section-label"><span>Part 5</span></div>
+                    <h2 id="letter-title" class="section-title">To My Deputy, at 21</h2>
+                    <div class="title-divider title-divider--crook"></div>
+                </header>
+
+                <div class="envelope-container reveal">
+                    <div class="envelope" id="envelope" role="button" tabindex="0"
+                        aria-label="Klik untuk membuka surat">
+                        <div class="envelope-flap" id="envelope-flap"></div>
+                        <div class="envelope-body">
+                            <div class="envelope-seal">❤</div>
+                        </div>
+                        <p class="envelope-hint">Klik untuk membuka surat</p>
+                    </div>
+                </div>
+
+                <div class="letter-wrapper" id="letter-wrapper" hidden>
+                    <div class="letter-paper">
+                        <div class="letter-paper-lines"></div>
+                        <div class="letter-body" id="letter-body">
+                            <p>Halo, Medina!. Cie 21 tahun, seumuran kita sekarang stop bilang aku tuaa 🎂</p>
+                            <p>Semoga panjang umur, sehat selalu, makin rajin dalam segala hal, dimudahkan rezekinya, makin sayang sama keluarga, makin sayang juga sama aku, sellau dikelilingin orang" baik dan sayang sama kamu, dan makin sukses kedepannya. Semoga cita-cita yang belum tercapai bisa terwujud satu persatu ditahun ini, aamiin. Semoga apa yang terjadi sama kamu, bisa jadi pelajaran buat kedepannya.</p>
+                            <p>Terimakasih ya med sudah bertahan samapai sejauh ini. Terimakasih juga udah jadi orang yang super duper membanggakan dan ornag yang selalu dicari. Terimakasih sudah mau berbagi cerita, seneng, sedih, marah, kesel dan semua ekspresi sama aku. Terus jadi alvaro yang aku kenal yaa, medd.</p>
+                            <p>Terharu banget 4 tahun rayain ulang tahunnya bareng, semoga hal ini bisa terus berlanjut selamanya ya medina. Semoga mimpi, doa dan harapan kita bisa terwujud semua, aamiin. Sekali lagi, happy birthday medinaaa lovvv uuu ❤️  </p>
+                        </div>
+                        <div class="letter-footer">
+                            <p>Lov,</p>
+                            <p class="letter-signature">Saski ❤️</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- =====================================================
+             SECTION 6 — SELAMAT ULANG TAHUN (Konfeti + Kue)
+             ===================================================== -->
+        <section id="section-birthday" class="section section-birthday" aria-labelledby="birthday-title">
+            <canvas id="confetti-canvas" class="confetti-canvas"></canvas>
+            <div class="hearts-container" id="hearts-container"></div>
+
+            <div class="section-inner birthday-inner">
+
+                <div class="cake-wrapper reveal" id="cake-wrapper">
+                    <div class="cake">
+                        <div class="cake-top">
+                            <div class="candles">
+                                <div class="candle">
+                                    <div class="flame"></div>
+                                </div>
+                                <div class="candle">
+                                    <div class="flame"></div>
+                                </div>
+                                <div class="candle">
+                                    <div class="flame"></div>
+                                </div>
+                                <div class="candle">
+                                    <div class="flame"></div>
+                                </div>
+                                <div class="candle">
+                                    <div class="flame"></div>
+                                </div>
+                            </div>
+                            <div class="frosting-top"></div>
+                        </div>
+                        <div class="cake-layer layer-2"></div>
+                        <div class="cake-plate"></div>
+                    </div>
+                </div>
+
+                <div class="birthday-wishes reveal">
+                    <h2 class="birthday-main-title" id="birthday-title">Happy Birthday,<br><em>Medina</em></h2>
+                    <p class="birthday-age">21</p>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ENDING -->
+        <footer id="section-ending" class="section section-ending" role="contentinfo">
+            <canvas id="ending-stars" class="ending-stars"></canvas>
+
+            <div class="ending-content">
+                <img src="assets/images/woody-bo.png" alt="Woody and Bo Peep"
+                    class="theme-characters ending-characters reveal-ending"
+                    onerror="this.src='https://placehold.co/300x300/1B2A4A/D4A24C?text=Woody+%26+Bo+Peep'">
+
+                <p class="ending-line reveal-ending">Makasih ya, Medina</p>
+                <p class="ending-line reveal-ending">Makasih udah milih buat terus jalan dan tumbuh bareng aku</p>
+                <p class="ending-line reveal-ending">Semoga semua hal baik di dunia ini, selalu tau jalan buat nemuin kamu</p>
+
+                <button class="btn-restart reveal-ending" id="btn-restart" onclick="restartWebsite()">
+                    Lihat Lagi
+                </button>
+            </div>
+        </footer>
+
+    </main>
+
+
+    <script src="script.js"></script>
+</body>
+
+</html>
