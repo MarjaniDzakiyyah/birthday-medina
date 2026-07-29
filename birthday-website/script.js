@@ -440,6 +440,23 @@ function restartWebsite() {
 }
 
 // ============================================================
+// FLIP CARDS (Corkboard — Know Your Deputy)
+// ============================================================
+
+function initFlipCards() {
+  $$('.sticky-flip').forEach((card) => {
+    const toggle = () => card.classList.toggle('flipped');
+    card.addEventListener('click', toggle);
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggle();
+      }
+    });
+  });
+}
+
+// ============================================================
 // PARALLAX on timeline photos
 // ============================================================
 
@@ -490,6 +507,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initScrollProgress();
   initScrollReveal();
+  initFlipCards();
   initGiftBox();
   initEnvelope();
   initConfetti();

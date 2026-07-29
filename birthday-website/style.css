@@ -344,14 +344,16 @@ button {
 }
 
 .section-subtitle {
-  font-size: 1.2rem;
+  font-family: var(--font-title); /* B — Poppins */
+  font-size: 1rem;
   color: var(--dark);
-  font-weight: 700;
+  font-weight: 600;
   background: white;
   display: inline-block;
   padding: 5px 15px;
   border-radius: 10px;
   border: 2px dashed var(--woody-brown);
+  letter-spacing: 0.3px;
 }
 
 .title-divider {
@@ -389,7 +391,7 @@ button {
    ============================================================ */
 .section-getting-to-know {
   background-color: var(--woody-yellow);
-  background-image: 
+  background-image:
     linear-gradient(90deg, rgba(200, 30, 30, 0.4) 2px, transparent 2px),
     linear-gradient(rgba(200, 30, 30, 0.4) 2px, transparent 2px);
   background-size: 40px 40px;
@@ -444,9 +446,9 @@ button {
 }
 
 .about-story p {
-  font-family: var(--font-body);
-  font-size: 1.15rem;
-  line-height: 1.8;
+  font-family: var(--font-body); /* C — Nunito */
+  font-size: 1.05rem;
+  line-height: 1.85;
   color: var(--dark);
   font-weight: 600;
   margin-bottom: 1em;
@@ -633,6 +635,260 @@ button {
 }
 
 /* ============================================================
+   CORKBOARD + FLIP CARDS (Part 2 — Know Your Deputy)
+   ============================================================ */
+
+/* Cork texture bulletin board */
+.corkboard {
+  background-color: #C8966C;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.04) 2px,
+      rgba(0,0,0,0.04) 4px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 4px,
+      rgba(255,255,255,0.06) 4px,
+      rgba(255,255,255,0.06) 6px
+    );
+  border: 18px solid #5C3A21;
+  border-radius: 16px;
+  box-shadow:
+    0 0 0 6px #7D5128,
+    inset 0 4px 20px rgba(0,0,0,0.25),
+    0 20px 50px rgba(0,0,0,0.35);
+  padding: 48px 32px 40px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  margin-bottom: 24px;
+  position: relative;
+}
+
+/* Wooden corner screws */
+.corkboard::before,
+.corkboard::after {
+  content: '';
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  background: radial-gradient(circle at 40% 40%, #8B6914, #5C3A00);
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.15);
+  box-shadow: inset 1px 1px 2px rgba(255,255,255,0.2), 0 2px 4px rgba(0,0,0,0.4);
+}
+.corkboard::before { top: 10px; left: 10px; }
+.corkboard::after  { bottom: 10px; right: 10px; }
+
+/* Flip card wrapper */
+.sticky-flip {
+  perspective: 900px;
+  height: 200px;
+  cursor: pointer;
+  transform: rotate(var(--rot, 0deg));
+  transition: transform 0.2s ease;
+  position: relative;
+}
+
+.sticky-flip:hover {
+  transform: rotate(0deg) scale(1.06);
+  z-index: 10;
+}
+
+/* 3D inner container */
+.sticky-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 4px;
+}
+
+.sticky-flip.flipped .sticky-inner {
+  transform: rotateY(180deg);
+}
+
+/* Front & Back shared */
+.sticky-front,
+.sticky-back {
+  position: absolute;
+  inset: 0;
+  border-radius: 4px;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 18px 14px;
+  text-align: center;
+  box-shadow:
+    2px 2px 8px rgba(0,0,0,0.22),
+    0 6px 12px rgba(0,0,0,0.12),
+    inset 0 -3px 6px rgba(0,0,0,0.08);
+}
+
+/* Tape strip across top of each card */
+.sticky-front::before,
+.sticky-back::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 48px;
+  height: 20px;
+  background: rgba(255,255,255,0.55);
+  border-radius: 3px;
+  border: 1px solid rgba(255,255,255,0.8);
+  z-index: 2;
+}
+
+.sticky-front {
+  background-color: var(--color-front, #FFF176);
+}
+
+.sticky-back {
+  background-color: var(--color-back, #FFD500);
+  transform: rotateY(180deg);
+}
+
+/* Card typography */
+.sticky-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 8px;
+  flex-shrink: 0;
+  color: rgba(0, 0, 0, 0.55);
+}
+
+.sticky-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Back side icon — white stroke for contrast on dark bg */
+.sticky-icon--back {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.sticky-q {
+  font-family: var(--font-title); /* B — Poppins */
+  font-size: 1rem;
+  font-weight: 700;
+  color: #2C2C2C;
+  line-height: 1.3;
+}
+
+.sticky-tap {
+  position: absolute;
+  bottom: 8px;
+  right: 10px;
+  font-family: var(--font-body); /* C — Nunito */
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: rgba(0,0,0,0.35);
+  font-style: italic;
+  animation: tapPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes tapPulse {
+  0%, 100% { opacity: 0.35; transform: scale(1); }
+  50%       { opacity: 0.7;  transform: scale(1.1); }
+}
+
+.sticky-a {
+  font-family: var(--font-cartoon); /* A — Chewy */
+  font-size: 1.6rem;
+  color: var(--color-text, white);
+  text-shadow: 2px 2px 0 rgba(0,0,0,0.25);
+  line-height: 1.2;
+  margin-bottom: 4px;
+}
+
+.sticky-note {
+  font-family: var(--font-body); /* C — Nunito */
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--color-text, rgba(255,255,255,0.92));
+  line-height: 1.4;
+  font-style: italic;
+}
+
+/* Pushpin */
+.pushpin {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 22px;
+  height: 22px;
+  background: radial-gradient(circle at 35% 35%, var(--pin-color, #E53935), color-mix(in srgb, var(--pin-color, #E53935) 60%, black));
+  border-radius: 50%;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.4), inset -2px -2px 4px rgba(0,0,0,0.3), inset 1px 1px 3px rgba(255,255,255,0.4);
+  z-index: 5;
+  transition: transform 0.2s;
+}
+
+.pushpin::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 10px;
+  background: linear-gradient(180deg, #888, #555);
+  border-radius: 0 0 3px 3px;
+}
+
+.sticky-flip:hover .pushpin {
+  transform: translateX(-50%) scale(1.15);
+}
+
+/* Hint caption below corkboard */
+.corkboard-hint {
+  text-align: center;
+  font-family: var(--font-hand);
+  font-size: 1.2rem;
+  color: var(--woody-brown);
+  font-weight: 700;
+  margin-top: 0;
+  opacity: 0.85;
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+  .corkboard {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    padding: 36px 18px 30px;
+    border-width: 12px;
+  }
+  .sticky-flip { height: 180px; }
+  .sticky-q { font-size: 1.1rem; }
+  .sticky-a { font-size: 1.3rem; }
+}
+
+@media (max-width: 480px) {
+  .corkboard {
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    padding: 28px 12px 24px;
+  }
+  .sticky-flip { height: 160px; }
+}
+
+/* ============================================================
    SECTION 2 — BUZZ LIGHTYEAR THEME (Green, Purple, Space)
    ============================================================ */
 .section-hobi {
@@ -711,18 +967,19 @@ button {
 }
 
 .photo-title {
-  font-family: var(--font-cartoon);
-  font-size: 1.5rem;
+  font-family: var(--font-cartoon); /* A — Chewy */
+  font-size: 1.4rem;
   color: var(--buzz-purple);
   margin-bottom: 6px;
   display: block;
 }
 
 .photo-caption p:not(.photo-title) {
-  font-family: var(--font-hand);
-  font-size: 1.5rem;
+  font-family: var(--font-body); /* C — Nunito */
+  font-size: 1rem;
+  font-weight: 600;
   color: var(--dark);
-  line-height: 1.4;
+  line-height: 1.5;
 }
 
 .timeline {
@@ -737,11 +994,10 @@ button {
   top: 0;
   bottom: 0;
   width: 12px;
-  background: #C27D38;
-  /* Slinky brown */
+  background: #F1C40F; /* Jessie Yellow */
   transform: translateX(-50%);
   border-radius: 6px;
-  box-shadow: inset 2px 0 0 rgba(0, 0, 0, 0.2), inset -2px 0 0 rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
 }
 
 .timeline-item {
@@ -761,11 +1017,17 @@ button {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: #E8A843;
-  /* Slinky orange */
-  border: 6px solid #C27D38;
-  box-shadow: 0 0 0 4px white;
+  background: #E74C3C; /* Jessie red */
+  border: 6px solid #F1C40F; /* Jessie Yellow */
+  box-shadow: 0 0 0 4px white, 0 4px 8px rgba(0,0,0,0.3);
   z-index: 1;
+  animation: pulseDot 2s infinite;
+}
+
+@keyframes pulseDot {
+  0% { box-shadow: 0 0 0 4px white, 0 4px 8px rgba(0,0,0,0.3); }
+  50% { box-shadow: 0 0 0 8px rgba(255,255,255,0.4), 0 6px 12px rgba(0,0,0,0.5); }
+  100% { box-shadow: 0 0 0 4px white, 0 4px 8px rgba(0,0,0,0.3); }
 }
 
 .timeline-photo-wrapper {
@@ -799,8 +1061,8 @@ button {
   background: white;
   padding: 24px;
   border-radius: var(--radius);
-  border: 4px solid var(--buzz-green);
-  box-shadow: 8px 8px 0 black;
+  border: 4px solid #E74C3C; /* Red */
+  box-shadow: 8px 8px 0 #1A5276; /* Dark denim shadow */
 }
 
 .timeline-card.plaid-strip::before {
@@ -813,30 +1075,32 @@ button {
 
 .timeline-date {
   display: inline-block;
-  font-weight: bold;
-  background: var(--buzz-purple);
+  font-family: var(--font-title); /* B — Poppins */
+  font-weight: 700;
+  background: #E74C3C; /* Red */
   color: white;
-  padding: 6px 16px;
+  padding: 5px 14px;
   border-radius: 20px;
   margin-bottom: 12px;
-  font-family: var(--font-title);
-  font-size: 1.2rem;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
 }
 
 .timeline-card-title {
-  font-family: var(--font-title);
-  font-size: 2.2rem;
-  color: var(--buzz-green);
-  -webkit-text-stroke: 1px black;
-  text-shadow: 2px 2px 0 black;
+  font-family: var(--font-cartoon); /* A — Chewy */
+  font-size: 2rem;
+  color: #E74C3C; /* Red */
+  -webkit-text-stroke: 1px #C0392B; /* Dark red stroke */
+  text-shadow: 2px 2px 0 #F1C40F; /* Yellow shadow */
   margin-bottom: 10px;
 }
 
 .timeline-card-text {
-  font-size: 1.1rem;
+  font-family: var(--font-body); /* C — Nunito */
+  font-size: 1rem;
   color: var(--dark);
   font-weight: 600;
-  line-height: 1.6;
+  line-height: 1.65;
 }
 
 .timeline-card-highlight {
@@ -860,33 +1124,40 @@ button {
 }
 
 /* ============================================================
-   SECTION 3 — SLINKY DOG THEME (Orange, Brown)
+   SECTION 3 — JESSIE THEME (Denim Blue, Red, Yellow)
    ============================================================ */
 .section-timeline {
-  background-color: #F8C471;
-  background-image:
-    linear-gradient(90deg, #F5B041 2px, transparent 2px),
-    linear-gradient(#F5B041 2px, transparent 2px);
-  background-size: 30px 30px;
-  border-bottom: 15px solid #C27D38;
+  background-color: #2980B9; /* Denim blue */
+  background-image: 
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Cpolygon points='75,20 86,55 122,55 93,76 104,111 75,90 46,111 57,76 28,55 64,55' fill='rgba(255,255,255,0.05)'/%3E%3Cpolygon points='25,10 29,21 40,21 31,28 35,39 25,32 15,39 19,28 10,21 21,21' fill='rgba(255,255,255,0.03)'/%3E%3Ccircle cx='120' cy='120' r='15' fill='none' stroke='rgba(255,255,255,0.04)' stroke-width='2' stroke-dasharray='4,4'/%3E%3C/svg%3E"),
+    linear-gradient(45deg, rgba(255,255,255,0.06) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0.06) 75%, transparent 75%, transparent);
+  background-size: 150px 150px, 10px 10px; /* Stars and subtle denim texture */
+  border-bottom: 15px solid #E74C3C; /* Red */
+  animation: slideCowgirl 40s linear infinite;
+}
+
+@keyframes slideCowgirl {
+  0% { background-position: 0 0, 0 0; }
+  100% { background-position: -150px 150px, -100px 100px; }
 }
 
 .section-timeline .section-label {
-  background: #C27D38;
-  border-color: white;
+  background: #E74C3C; /* Red */
+  border-color: #F1C40F; /* Yellow */
   color: white;
-  box-shadow: 3px 3px 0 #935116;
+  box-shadow: 3px 3px 0 #1A5276; /* Dark denim shadow */
 }
 
 .section-timeline .section-title {
-  color: #C27D38;
-  -webkit-text-stroke: 2px white;
-  text-shadow: 4px 4px 0 #935116;
+  color: #F1C40F; /* Yellow */
+  -webkit-text-stroke: 2px #E74C3C; /* Red stroke */
+  text-shadow: 4px 4px 0 #1A5276; /* Dark denim shadow */
 }
 
 .section-timeline .section-subtitle {
   background: white;
-  color: #C27D38;
+  color: #E74C3C;
+  border: 2px solid #E74C3C;
 }
 
 /* ============================================================
@@ -924,7 +1195,7 @@ button {
 .gift-container {
   display: flex;
   justify-content: center;
-  margin-bottom: 48px;
+  margin-bottom: 90px; /* Increased to make room for absolute button */
 }
 
 .gift-box {
@@ -1031,13 +1302,16 @@ button {
 .gift-hint {
   text-align: center;
   font-family: var(--font-title);
-  font-size: 1.8rem;
+  font-size: 1.2rem;
   color: var(--woody-red);
-  margin-top: 24px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -65px; /* Pushed further down to not touch the box */
   background: white;
   padding: 5px 20px;
   border-radius: 20px;
-  display: inline-block;
+  width: max-content;
   border: 3px solid var(--woody-yellow);
   box-shadow: 4px 4px 0 var(--woody-jeans);
 }
@@ -1079,6 +1353,151 @@ button {
 }
 
 /* ============================================================
+   SECTION — POLAROID ROLL (Film Strip)
+   ============================================================ */
+.section-polaroid {
+  background-color: #8FD84B; /* Bright lime green (Rex) */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg transform='rotate(15 50 50)'%3E%3Cpath d='M40 40 C 40 20, 60 20, 60 40 C 60 55, 55 70, 50 80 C 45 70, 40 55, 40 40 Z' fill='%232A500E' opacity='0.12'/%3E%3Cpath d='M25 45 C 10 35, 20 20, 35 30 C 45 35, 50 50, 45 60 C 40 55, 30 50, 25 45 Z' fill='%232A500E' opacity='0.12'/%3E%3Cpath d='M75 45 C 90 35, 80 20, 65 30 C 55 35, 50 50, 55 60 C 60 55, 70 50, 75 45 Z' fill='%232A500E' opacity='0.12'/%3E%3Ccircle cx='50' cy='85' r='12' fill='%232A500E' opacity='0.12'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 120px 120px;
+  border-top: 12px solid #589A29;
+  border-bottom: 12px solid #589A29;
+  padding-bottom: 0;
+  overflow: hidden;
+}
+
+.section-polaroid .section-title {
+  color: white;
+  -webkit-text-stroke: 2px #386A14;
+  text-shadow: 4px 4px 0 #2A500E;
+}
+
+.section-polaroid .section-label {
+  background: #386A14;
+  color: white;
+  border-color: white;
+  box-shadow: 3px 3px 0 #1D3A0A;
+}
+
+.section-polaroid .section-label span {
+  color: white;
+}
+
+.section-polaroid .section-subtitle {
+  background: white;
+  color: #386A14;
+  border-color: #386A14;
+}
+
+/* Film strip */
+.film-strip-wrapper {
+  position: relative;
+  width: 100%;
+  padding: 20px 0;
+  background: #5C3A21; /* Brown film strip body */
+  border-top: 2px solid #3e2615;
+  border-bottom: 2px solid #3e2615;
+  overflow: hidden;
+  margin-top: 48px;
+}
+
+/* Film perforations row */
+.film-perforations {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 0 12px;
+  z-index: 2;
+}
+
+.film-perforations.top { top: 0; }
+.film-perforations.bottom { bottom: 0; }
+
+.film-perforations::before {
+  content: '';
+  display: block;
+  flex: 1;
+  height: 18px;
+  background: repeating-linear-gradient(
+    90deg,
+    #5C3A21 0px,
+    #5C3A21 24px,
+    #8FD84B 24px,
+    #8FD84B 42px
+  );
+  border-radius: 4px;
+}
+
+/* Scrolling track */
+.polaroid-track {
+  display: flex;
+  gap: 32px;
+  padding: 32px 40px;
+  width: max-content;
+  animation: filmScroll 28s linear infinite;
+}
+
+.polaroid-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes filmScroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Individual polaroid */
+.polaroid-card {
+  flex-shrink: 0;
+  width: 160px; /* Reduced width so it's not too big */
+  background: #FDFAF4;
+  padding: 10px 10px 30px 10px;
+  border-radius: 3px;
+  box-shadow: 6px 6px 20px rgba(0,0,0,0.5), 0 2px 6px rgba(0,0,0,0.3);
+  transform: rotate(var(--p-rot, 0deg));
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: default;
+}
+
+.polaroid-card:hover {
+  transform: rotate(0deg) scale(1.08) translateY(-8px);
+  box-shadow: 10px 14px 28px rgba(0,0,0,0.6);
+  z-index: 5;
+}
+
+.polaroid-img-wrap {
+  width: 100%;
+  aspect-ratio: 4/5; /* Slightly longer vertically */
+  overflow: hidden;
+  border-radius: 2px;
+  background: #ddd;
+  filter: sepia(0.15) contrast(1.05);
+}
+
+.polaroid-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.polaroid-caption {
+  font-family: var(--font-hand); /* Caveat — handwritten feel for caption only */
+  font-size: 1rem;
+  color: #444;
+  text-align: center;
+  margin-top: 10px;
+  line-height: 1.2;
+}
+
+@media (max-width: 600px) {
+  .polaroid-card { width: 140px; padding: 8px 8px 26px 8px; }
+}
+
+/* ============================================================
    SECTION 5 — BO PEEP THEME (Pink Polka Dots)
    ============================================================ */
 .section-letter {
@@ -1110,7 +1529,7 @@ button {
 .envelope-container {
   display: flex;
   justify-content: center;
-  margin-bottom: 48px;
+  margin-bottom: 80px; /* Increased to make room for absolute button */
 }
 
 .envelope {
@@ -1127,15 +1546,16 @@ button {
 
 .envelope-flap {
   width: 100%;
-  height: 0;
-  border-left: 160px solid transparent;
-  border-right: 160px solid transparent;
-  border-top: 110px solid var(--bo-pink);
+  height: 130px; /* changed from 0 */
+  background: var(--bo-light-blue); /* Bo Peep blue */
+  border-radius: 0 0 50% 50%; /* soft curved flap */
+  border: 5px solid var(--bo-light-blue);
+  border-top: none;
   transform-origin: top;
   transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   z-index: 2;
-  drop-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
 }
 
 .envelope.opened .envelope-flap {
@@ -1146,20 +1566,23 @@ button {
 .envelope-body {
   background: white;
   height: 180px;
-  border-radius: 0 0 12px 12px;
+  width: 100%;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: -2px;
-  border: 5px solid var(--bo-pink);
+  margin-top: -120px; /* Pulls the body up so the flap overlaps it */
+  border: 5px solid var(--bo-light-blue); /* Bo Peep blue */
   box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.1);
-  background-image: repeating-linear-gradient(45deg, var(--bo-polka) 0, var(--bo-polka) 15px, white 15px, white 30px);
+  background-image: repeating-linear-gradient(45deg, var(--bo-light-blue) 0, var(--bo-light-blue) 15px, white 15px, white 30px); /* Blue & white stripes */
+  position: relative;
+  z-index: 1;
 }
 
 .envelope-seal {
   width: 70px;
   height: 70px;
-  background: var(--woody-red);
+  background: var(--bo-pink); /* Pink seal */
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -1171,7 +1594,7 @@ button {
   transition: var(--transition);
   z-index: 3;
   position: absolute;
-  top: 80px;
+  top: 95px; /* Moved down to sit on the edge of the 130px flap */
   left: 50%;
   transform: translateX(-50%);
 }
@@ -1183,14 +1606,17 @@ button {
 
 .envelope-hint {
   text-align: center;
-  margin-top: 24px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -70px; /* Pushed further down to not touch the envelope */
   font-family: var(--font-title);
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   color: white;
   background: var(--bo-pink);
   padding: 5px 20px;
   border-radius: 20px;
-  display: inline-block;
+  width: max-content;
   border: 3px solid white;
   box-shadow: 4px 4px 0 var(--bo-light-blue);
 }
@@ -1231,12 +1657,12 @@ button {
 }
 
 .letter-body p {
-  font-family: var(--font-hand);
-  font-size: 1.8rem;
+  font-family: var(--font-body); /* Normal readable font */
+  font-size: 1.1rem;
   line-height: 1.6;
   color: var(--woody-brown);
   margin-bottom: 1em;
-  font-weight: bold;
+  font-weight: 600;
 }
 
 .letter-footer {
@@ -1247,10 +1673,10 @@ button {
 }
 
 .letter-signature {
-  font-family: var(--font-title);
-  font-size: 2.5rem;
+  font-family: var(--font-hand); /* Lettering/cursive signature */
+  font-size: 3rem;
   color: var(--woody-red);
-  margin-top: 8px;
+  margin-top: -10px; /* Pull it slightly up for handwriting effect */
   transform: rotate(-3deg);
   display: inline-block;
 }
@@ -1260,6 +1686,8 @@ button {
    ============================================================ */
 .section-birthday {
   background: transparent;
+  padding-bottom: 0 !important; /* Dihapus total padding bawah supaya nempel ke section ending */
+  margin-bottom: -40px; /* Pull it even closer */
 }
 
 .birthday-inner {
@@ -1523,6 +1951,35 @@ button {
   50% {
     transform: scale(1.2)
   }
+}
+
+/* ============================================================
+   SECTION 7 — ENDING
+   ============================================================ */
+.section-ending {
+  padding-top: 0 !important;
+  margin-top: -20px; /* Tarik naik section ending supaya makin dekat dengan birthday title */
+  text-align: center;
+  position: relative;
+}
+
+.ending-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.ending-line {
+  font-family: var(--font-cartoon); /* Changed to bubble font */
+  font-size: 2.5rem;
+  color: var(--woody-yellow);
+  line-height: 1.3;
+  margin-bottom: 32px;
+  max-width: 700px;
+  -webkit-text-stroke: 1px var(--woody-red);
+  text-shadow: 3px 3px 0 var(--woody-red), 4px 4px 8px rgba(0,0,0,0.6);
 }
 
 /* ============================================================
